@@ -3,15 +3,31 @@ from browser.html import TABLE,TR,TD,BUTTON,P,PRE,TEXTAREA,INPUT,DIV,SPAN,SELECT
 import browser
 import json
 
-class Menu(DIV):
+import langdata as lang
+
+class MainMenu():
+	
 	def __init__(self):
-		DIV.__init__(self)
-		self.style= {'Class':'dropdown'}
-		self <= BUTTON("Inquéritos"+SPAN(Class="caret"),Class="btn btn-default dropdown-toggle",data-toggle="dropdown" )#, aria-haspopup="true", aria-expanded="true")
-		menuInq = UL(Class="dropdown-menu")
-		menuInq <= LI(A("Novo",href="#"))
-		self <= menuInq
-		#alert(dir(self))
+		dropDownInq = document['inqueritoMenuDropDown']
+		dropDownInq.text = lang.m001 # Inquéritos
+		dropDownInq<= SPAN(Class="caret")
+
+		mNovo = self.menuOption(lang.m002, self.showAlert) # Novo
+		mAbrir = self.menuOption(lang.m003, self.showAlert) #  Abrir
+		mConsulta = self.menuOption(lang.m004, self.showAlert) # Consulta
+		
+		menu = document['inqueritoMenu']
+		menu<= mNovo+mAbrir+self.separator()+mConsulta
+	def showAlert(self,evt):
+		alert("Usuário não identificado")
+	def menuOption(self, frase, action):
+		o = LI(A(frase))
+		o.bind('click', action)
+		return o
+	def separator(self):
+		return LI(role='separator', Class="divider")
+		
+
 class BuscaAlimento(TABLE):
 	def __init__(self):
 		TABLE.__init__(self)
@@ -39,15 +55,16 @@ class BuscaAlimento(TABLE):
 
 
 def showAlert(evt):
-	alert(dir(evt.currentTarget))
-	evt.currentTarget.set_class_name('disabled')
+	alert(evt.currentTarget)
+	#evt.currentTarget.set_class_name('disabled')
 
-Principal = BuscaAlimento()
+#Principal = BuscaAlimento()
 #document['principal'] <= Menu() #Principal
-document['inqueritoMenu']<=LI(A("N",href="#"))
-
+#document['inqueritoMenu']<=LI(A("Novo",href="#"))
+#document['inqueritoMenu']<=LI(A("Abrir",href="#"))
 #document['novoInquerito'].bind('click',showAlert)
 
-document <=Menu()
+#document <=Menu()
 #document['menu'].bind('click',showAlert)
+m = MainMenu()
 
