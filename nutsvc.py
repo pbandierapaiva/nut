@@ -9,7 +9,7 @@ import sys
 from email.message import EmailMessage
 from mysql.connector import (connection)
 
-from bottle import route, run, template
+#from bottle import route, run, template
 
 sys.path.append('/srv/http/nut')
 import config
