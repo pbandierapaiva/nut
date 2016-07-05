@@ -4,10 +4,12 @@ import email
 #import uuid
 import cgi 
 import sys
-from email.mime.text import MIMEText
-from subprocess import Popen, PIPE
+#from email.mime.text import MIMEText
+#from subprocess import Popen, PIPE
 from email.message import EmailMessage
 from mysql.connector import (connection)
+
+from bottle import route, run, template
 
 sys.path.append('/srv/http/nut')
 import config

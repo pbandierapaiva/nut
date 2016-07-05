@@ -35,13 +35,14 @@ class MainMenu():
 class BuscaAlimento(DIV):
 	sel=None
 	nutTab=None
+	inText=None
 	def __init__(self):
 		DIV.__init__(self) #, style={'max-width':'90px'})
 		selTable = TABLE()
 		self <= selTable
-		inText = INPUT(Class="form-control")
-		inText.bind('keyup',self.entrou)
-		selTable<=TR(TD(inText,name="intext"))
+		self.inText = INPUT(Class="form-control")
+		self.inText.bind('keyup',self.entrou)
+		selTable<=TR(TD(P("Busca: ")+self.inText))   #,name="intext"))
 		self.sel = SELECT(size=8,Class='form-control')     # style={'max_width':'90px'})
 		self.sel.bind('input',self.selec)
 		selTable<=TR(TD(self.sel))
@@ -70,7 +71,12 @@ class BuscaAlimento(DIV):
 				self.sel<=OPTION(l[1], value=l[0])
 	def selec(self, event):
 		self.sel.style.display = 'none'
-		alert(dir(event.currentTarget))
+		#alert(dir(event.currentTarget))
+		#alert(event.currentTarget.options[event.currentTarget.selectedIndex].text)
+		#alert(event.currentTarget.text[event.currentTarget.selectionRange])
+		#alert(dir(self.inText))
+		#self.inText.set_text(event.currentTarget.options[event.currentTarget.selectedIndex].text)
+		self.inText.value = event.currentTarget.options[event.currentTarget.selectedIndex].text
 		medida = EscolheMedida(event.currentTarget.value, self.selected)
 		self<=medida
 		medida.showModal()
@@ -91,6 +97,7 @@ class EscolheMedida(DIALOG):
 		#tab<=TR(TD('Peso (g):')+TD(self.inText))
 		self.sel = SELECT(Class='form-control', size=8)     # style={'max_width':'90px'})
 		##self.sel.bind('input',self.selected)
+		#tab<=TH("Escolha medida", colspan=2)
 		self.inMedQty = INPUT(Class="form-control", size=4)
 		tab<=TR(TD('Medida caseira, quantidade')+TD(self.inMedQty))
 		tab <=TR(TD( self.sel, colspan=2))
